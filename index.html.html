@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Login / Register</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+    }
+    .box {
+      width: 300px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+    }
+    input, select, button {
+      width: 100%;
+      margin: 6px 0;
+      padding: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div class="box" id="loginBox">
+  <h2>Login / Register</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="doLogin()">Login</button>
+  <button onclick="doRegister()">Register</button>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div class="box" id="dashboard" style="display:none;">
+  <h2>บันทึกรายรับรายจ่าย</h2>
+  <input id="detail" placeholder="รายละเอียด">
+  <input id="amount" type="number" placeholder="จำนวนเงิน">
+
+  <select id="type">
+    <option value="income">รายรับ</option>
+    <option value="expense">รายจ่าย</option>
+  </select>
+
+  <button onclick="saveData()">บันทึก</button>
+  <button onclick="logout()">ออกจากระบบ</button>
+
+  <ul id="list"></ul>
+</div>
+
+<script>
+/* ===== LOGIN ===== */
+function doLogin() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (email === "" || password === "") {
+    alert("กรุณากรอกข้อมูลให้ครบ");
+    return;
+  }
+
+  alert("Login สำเร็จ");
+  showDashboard();
+}
+
+/* ===== REGISTER ===== */
+function doRegister() {
+  alert("Register สำเร็จ");
+}
+
+/* ===== DASHBOARD ===== */
+function showDashboard() {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+}
+
+/* ===== SAVE DATA ===== */
+function saveData() {
+  const detail = document.getElementById("detail").value;
+  const amount = document.getElementById("amount").value;
+  const type = document.getElementById("type").value;
+
+  if (detail === "" || amount === "") {
+    alert("กรุณากรอกข้อมูล");
+    return;
+  }
+
+  const li = document.createElement("li");
+  li.textContent = `${type === "income" ? "➕" : "➖"} ${detail} : ${amount} บาท`;
+  document.getElementById("list").appendChild(li);
+
+  document.getElementById("detail").value = "";
+  document.getElementById("amount").value = "";
+}
+
+/* ===== LOGOUT ===== */
+function logout() {
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("loginBox").style.display = "block";
+}
+</script>
+
+</body>
+</html>
